@@ -1,0 +1,14 @@
+Library ieee;
+use ieee.std_logic_1164.all;
+
+ENTITY tpBase1 IS 
+   PORT (
+      a,b          :  IN STD_logic;
+      s            :  OUT STD_LOGIC);
+END tpBase1;
+
+
+ARCHITECTURE beh of tpBase1 is 
+BEGIN 
+      s<=a AND b;
+END beh;

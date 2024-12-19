@@ -1,0 +1,107 @@
+library IEEE;
+use IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all;
+
+entity avalon_anemo_tb is
+end entity avalon_anemo_tb;
+
+architecture testbench of avalon_anemo_tb is
+    
+    -- Component Declaration
+    component avalon_anemo
+        port (
+            clk, chipselect, reset_n, write_n : in std_logic; 
+            writedata : in std_logic_vector (15 downto 0); 
+            readdata : out std_logic_vector (15 downto 0); 
+            address: std_logic;
+            in_freq_anemometre, continu, start_stop : in std_logic;
+            data_anemometre : out std_logic_vector(7 downto 0)
+        );
+    end component;
+
+    -- Testbench Signals
+    signal clk : std_logic := '0';
+    signal reset_n : std_logic := '0';
+    signal chipselect : std_logic := '0';
+    signal write_n : std_logic := '1';
+    signal address : std_logic := '0';
+    signal writedata : std_logic_vector(15 downto 0) := (others => '0');
+    signal readdata : std_logic_vector(15 downto 0);
+    signal in_freq_anemometre : std_logic := '0';
+    signal continu : std_logic := '1';
+    signal start_stop : std_logic := '0';
+    signal data_anemometre : std_logic_vector(7 downto 0);
+
+    -- Clock Period (50 MHz => 20 ns clock period)
+    constant CLK_PERIOD : time := 20 ns;
+
+    -- Variables for Stimulus
+    signal adata_valid : std_logic := '0';
+
+begin
+    -- Instantiate DUT
+    DUT: avalon_anemo
+        port map (
+            clk => clk,
+            chipselect => chipselect,
+            reset_n => reset_n,
+            write_n => write_n,
+            writedata => writedata,
+            readdata => readdata,
+            address => address,
+            in_freq_anemometre => in_freq_anemometre,
+            continu => continu,
+            start_stop => start_stop,
+            data_anemometre => data_anemometre
+        );
+
+    -- Clock Generation
+    clk_process: process
+    begin
+        while true loop
+            clk <= '0';
+            wait for CLK_PERIOD / 2;
+            clk <= '1';
+            wait for CLK_PERIOD / 2;
+        end loop;
+    end process;
+
+    -- 20 Hz Square Wave for in_freq_anemometre (Period = 50 ms)
+    freq_process: process
+    begin
+        while true loop
+            in_freq_anemometre <= '0';
+            wait for 25 ms;
+            in_freq_anemometre <= '1';
+            wait for 25 ms;
+        end loop;
+    end process;
+
+    -- Stimulus Process
+    stimulus: process
+    begin
+        -- Reset the DUT
+        reset_n <= '0';
+        wait for 50 ns;
+        reset_n <= '1';
+
+        -- Write Data to DUT
+        chipselect <= '1';
+        write_n <= '0';
+        writedata <= "000000000000011";  -- Set araz_n = 1, acontinu = 1, astart_stop = 1
+        wait for CLK_PERIOD;
+        write_n <= '1';
+        wait for CLK_PERIOD;
+
+        -- Read Data from DUT
+        address <= '1';
+        wait for CLK_PERIOD;
+
+        -- Observe readdata and other signals in the waveform
+        wait for 500 ms; -- Allow the simulation to run for a while
+
+        -- Stop the simulation
+        wait;
+    end process;
+
+end architecture testbench;

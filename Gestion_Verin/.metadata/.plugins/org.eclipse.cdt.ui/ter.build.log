@@ -1,0 +1,9 @@
+16:51:30 **** Incremental Build of configuration Nios II for project ter ****
+make all 
+Info: Building ../ter_bsp/
+C:/intelFPGA_lite/18.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../ter_bsp/
+[BSP build complete]
+[ter build complete]
+
+16:51:30 Build Finished (took 918ms)
+

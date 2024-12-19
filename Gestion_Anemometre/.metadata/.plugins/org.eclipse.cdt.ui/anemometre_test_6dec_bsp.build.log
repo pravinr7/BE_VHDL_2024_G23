@@ -1,0 +1,6 @@
+10:01:13 **** Clean-only build of configuration Nios II for project anemometre_test_6dec_bsp ****
+make clean 
+[BSP clean complete]
+
+10:01:14 Build Finished (took 997ms)
+

@@ -1,0 +1,108 @@
+-- Déclaration de l'entité principale
+entity top_level is
+    port (
+        clk_50mhz  : in  std_logic;       -- Horloge de 50 MHz
+        reset_n    : in  std_logic;       -- Réinitialisation active basse
+        duty       : in  std_logic_vector(7 downto 0);  -- Rapport cyclique pour le PWM
+        Nfreq      : in std_logic_vector(7 downto 0);   -- Fréquence de PWM
+        rst_pwm    : in std_logic;        -- Réinitialisation du PWM
+        data_adc   : in std_logic;        -- Donnée de l'ADC
+        clk_adc    : out std_logic;       -- Horloge ADC
+        cs_n       : out std_logic;       -- Sélection de la puce ADC
+        angle_barre: in std_logic_vector(11 downto 0);  -- Données de l'ADC
+        pwm_out    : out std_logic;       -- Sortie PWM finale
+        out_sens   : out std_logic;       -- Sens de rotation
+        f_g        : out std_logic;       -- Signal de butée gauche
+        f_d        : out std_logic        -- Signal de butée droite
+    );
+end entity top_level;
+
+-- Définition de l'architecture principale
+architecture Behavioral of top_level is
+
+    -- Déclaration des composants PWM, ADC et control_butee
+    component pwm
+        Port (
+            clk_50mhz : in std_logic;
+            reset_n   : in std_logic;
+            duty      : in std_logic_vector(7 downto 0);
+            Nfreq     : in std_logic_vector(7 downto 0);
+            rst       : in std_logic;
+            pwm_out   : out std_logic
+        );
+    end component;
+
+    component adc
+        Port (
+            clk      : in std_logic;
+            rst      : in std_logic;
+            data_adc : in std_logic;
+            clk_adc  : out std_logic; 
+            cs_n     : out std_logic; 
+            angle_barre : out std_logic_vector(11 downto 0)
+        );
+    end component;
+
+    component control_butee
+        Port (
+            pwm_in   : in std_logic;
+            sens     : in std_logic;
+            enable   : in std_logic;
+            butee_g  : in std_logic_vector(15 downto 0);
+            butee_d  : in std_logic_vector(15 downto 0);
+            angle_barre : in std_logic_vector(11 downto 0);
+            pwm_out  : out std_logic;
+            out_sens : out std_logic;
+            f_g      : out std_logic;
+            f_d      : out std_logic
+        );
+    end component;
+
+    -- Déclarations des signaux internes
+    signal internal_pwm_out : std_logic;
+    signal internal_sens    : std_logic := '0';  -- Sens de rotation (initialisé à '0' par exemple)
+    signal internal_enable  : std_logic := '1';  -- Signal d'activation (initialisé à '1' pour activer)
+    signal internal_butee_g : std_logic_vector(15 downto 0) := x"FFFF";  -- Limite gauche de butée (par exemple)
+    signal internal_butee_d : std_logic_vector(15 downto 0) := x"0000";  -- Limite droite de butée (par exemple)
+    signal angle_from_adc   : std_logic_vector(11 downto 0);
+
+begin
+
+    -- Instanciation du composant PWM
+    u_pwm : pwm
+        port map (
+            clk_50mhz => clk_50mhz,
+            reset_n   => reset_n,
+            duty      => duty,
+            Nfreq     => Nfreq,
+            rst       => rst_pwm,
+            pwm_out   => internal_pwm_out
+        );
+
+    -- Instanciation du composant ADC
+    u_adc : adc
+        port map (
+            clk      => clk_50mhz,
+            rst      => reset_n,
+            data_adc => data_adc,
+            clk_adc  => clk_adc,
+            cs_n     => cs_n,
+            angle_barre => angle_from_adc
+        );
+
+    -- Instanciation du composant control_butee
+    u_control_butee : control_butee
+        port map (
+            pwm_in   => internal_pwm_out,        -- Le signal PWM généré par le module PWM
+            sens     => internal_sens,           -- Sens de rotation
+            enable   => internal_enable,         -- Signal d'activation
+            butee_g  => internal_butee_g,        -- Limite gauche de butée
+            butee_d  => internal_butee_d,        -- Limite droite de butée
+            angle_barre => angle_from_adc,       -- Angle de la barre issu de l'ADC
+            pwm_out  => pwm_out,                 -- Signal PWM de sortie après contrôle de butée
+            out_sens => out_sens,                -- Sens de rotation de sortie
+            f_g      => f_g,                     -- Signal de butée gauche
+            f_d      => f_d                      -- Signal de butée droite
+        );
+
+end architecture Behavioral;

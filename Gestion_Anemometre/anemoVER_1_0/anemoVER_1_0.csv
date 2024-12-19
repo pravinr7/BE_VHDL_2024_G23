@@ -1,0 +1,28 @@
+# system info anemoVER_1_0 on 2024.11.28.21:57:02
+system_info:
+name,value
+DEVICE,EP4CE22F17C6
+DEVICE_FAMILY,Cyclone IV E
+GENERATION_ID,1732827410
+#
+#
+# Files generated for anemoVER_1_0 on 2024.11.28.21:57:02
+files:
+filepath,kind,attributes,module,is_top
+simulation/anemoVER_1_0.vhd,VHDL,,anemoVER_1_0,true
+simulation/submodules/anemoVER_1_0_CPU.v,VERILOG,,anemoVER_1_0_CPU,false
+simulation/submodules/anemoVER_1_0_DEBUG.vhd,VHDL,,anemoVER_1_0_DEBUG,false
+simulation/submodules/anemoVER_1_0_RAM.hex,HEX,,anemoVER_1_0_RAM,false
+simulation/submodules/anemoVER_1_0_RAM.vhd,VHDL,,anemoVER_1_0_RAM,false
+#
+# Map from instance-path to kind of module
+instances:
+instancePath,module
+anemoVER_1_0.CPU,anemoVER_1_0_CPU
+anemoVER_1_0.CPU.cpu,anemoVER_1_0_CPU_cpu
+anemoVER_1_0.DEBUG,anemoVER_1_0_DEBUG
+anemoVER_1_0.RAM,anemoVER_1_0_RAM
+anemoVER_1_0.avalon_anemo_0,anemoVER_1_0_avalon_anemo_0
+anemoVER_1_0.mm_interconnect_0,anemoVER_1_0_mm_interconnect_0
+anemoVER_1_0.irq_mapper,anemoVER_1_0_irq_mapper
+anemoVER_1_0.rst_controller,altera_reset_controller

@@ -1,0 +1,113 @@
+library IEEE;
+use IEEE.std_logic_1164.all;
+use IEEE.std_logic_unsigned.all;
+
+entity verrin_avalon is
+    Port (
+        clk_50MHz        : in std_logic;   -- Horloge 50 MHz
+        rst              : in std_logic;   -- Reset
+        addr            : in std_logic_vector(4 downto 0);  -- Adresse du registre
+        write_en        : in std_logic;    -- Signal de commande d'écriture
+        read_en         : in std_logic;    -- Signal de commande de lecture
+        write_data      : in std_logic_vector(15 downto 0); -- Données à écrire
+        read_data       : out std_logic_vector(15 downto 0); -- Données lues
+        freq            : out std_logic_vector(15 downto 0);  -- Fréquence
+        duty            : out std_logic_vector(15 downto 0);  -- Duty cycle
+        butee_g         : out std_logic_vector(15 downto 0);  -- Butée gauche
+        butee_d         : out std_logic_vector(15 downto 0);  -- Butée droite
+        config          : out std_logic_vector(15 downto 0);  -- Configuration
+        angle_barre     : out std_logic_vector(11 downto 0);  -- Angle de la barre
+        pwm_out         : out std_logic;   -- Sortie PWM
+        out_sens        : out std_logic;   -- Direction du mouvement
+        f_g             : out std_logic;   -- Fin de course gauche
+        f_d             : out std_logic    -- Fin de course droite
+    );
+end verrin_avalon;
+
+architecture arch of verrin_avalon is
+
+    -- Registres internes
+    signal freq_reg       : std_logic_vector(15 downto 0) := (others => '0');
+    signal duty_reg       : std_logic_vector(15 downto 0) := (others => '0');
+    signal butee_g_reg    : std_logic_vector(15 downto 0) := (others => '0');
+    signal butee_d_reg    : std_logic_vector(15 downto 0) := (others => '0');
+    signal config_reg     : std_logic_vector(15 downto 0) := (others => '0');
+    signal angle_barre_reg : std_logic_vector(11 downto 0) := (others => '0');
+    
+    -- Processus d'écriture des registres
+    process(clk_50MHz)
+    begin
+        if rst = '1' then
+            -- Reset des registres
+            freq_reg <= (others => '0');
+            duty_reg <= (others => '0');
+            butee_g_reg <= (others => '0');
+            butee_d_reg <= (others => '0');
+            config_reg <= (others => '0');
+            angle_barre_reg <= (others => '0');
+        elsif rising_edge(clk_50MHz) then
+            -- Ecriture dans les registres via l'adresse et les signaux d'écriture
+            if write_en = '1' then
+                case addr is
+                    when "00000" =>  -- Adresse 0: freq
+                        freq_reg <= write_data;
+                    when "00001" =>  -- Adresse 1: duty
+                        duty_reg <= write_data;
+                    when "00010" =>  -- Adresse 2: butee_g
+                        butee_g_reg <= write_data;
+                    when "00011" =>  -- Adresse 3: butee_d
+                        butee_d_reg <= write_data;
+                    when "00100" =>  -- Adresse 4: config
+                        config_reg <= write_data;
+                    when others =>
+                        -- Ne fait rien si l'adresse n'est pas valide
+                        null;
+                end case;
+            end if;
+        end if;
+    end process;
+
+    -- Processus de lecture des registres
+    process(clk_50MHz)
+    begin
+        if rst = '1' then
+            read_data <= (others => '0');
+        elsif rising_edge(clk_50MHz) then
+            -- Lecture des registres via l'adresse et les signaux de lecture
+            if read_en = '1' then
+                case addr is
+                    when "00000" =>  -- Adresse 0: freq
+                        read_data <= freq_reg;
+                    when "00001" =>  -- Adresse 1: duty
+                        read_data <= duty_reg;
+                    when "00010" =>  -- Adresse 2: butee_g
+                        read_data <= butee_g_reg;
+                    when "00011" =>  -- Adresse 3: butee_d
+                        read_data <= butee_d_reg;
+                    when "00100" =>  -- Adresse 4: config
+                        read_data <= config_reg;
+                    when "00101" =>  -- Adresse 5: angle_barre (lecture seule)
+                        read_data <= (others => '0') & angle_barre_reg; -- Angle de la barre (12 bits)
+                    when others =>
+                        -- Ne fait rien si l'adresse n'est pas valide
+                        read_data <= (others => '0');
+                end case;
+            end if;
+        end if;
+    end process;
+
+    -- Assignation des sorties
+    freq <= freq_reg;
+    duty <= duty_reg;
+    butee_g <= butee_g_reg;
+    butee_d <= butee_d_reg;
+    config <= config_reg;
+    angle_barre <= angle_barre_reg;
+
+    -- Logique de configuration des sorties, par exemple pour PWM, sens, fin de course
+    pwm_out <= config_reg(1);  -- Enable PWM (bit 1)
+    out_sens <= config_reg(2); -- Sens de rotation (bit 2)
+    f_g <= config_reg(4);      -- Fin de course gauche (bit 4)
+    f_d <= config_reg(3);      -- Fin de course droite (bit 3)
+
+end arch;

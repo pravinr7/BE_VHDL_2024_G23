@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<!--Created by Liquid XML 2008 (www.liquid-technologies.com) for ALTERA CORPORATION-->
+<ProgramExecution xmlns:xs="http://www.w3.org/2001/XMLSchema-instance">
+	<AddressBits>32</AddressBits>
+	<DateInvoked>2024/09/17 08:08:52</DateInvoked>
+	<ElapsedTime>12888</ElapsedTime>
+	<IsInternal>false</IsInternal>
+	<Name>quartus</Name>
+	<PeakMemoryUsed>0</PeakMemoryUsed>
+	<License>
+		<Edition>Web Edition</Edition>
+		<LicenseHostID/>
+	</License>
+	<SchemaVersion>schema_2009-05-26</SchemaVersion>
+	<ProjectRevision>
+		<ProjectName/>
+		<Revision/>
+	</ProjectRevision>
+	<ApplicationError>
+		<ErrorMessage>Current editor: STED, RPW, WED, RPW</ErrorMessage>
+		<Line>0</Line>
+		<SourceFile>unknown</SourceFile>
+		<StackTrace>
+	0x77864211: ntdll + 0x84211 (RtlUlonglongByteSwap + 0x74c1)
+	0x75e45e73: kernel32 + 0x15e73 (DeactivateActCtx + 0x27)
+	0x743d86d9: mfc90 + 0x586d9
+	0x761962f9: USER32 + 0x162f9 (gapfnScSendMessage + 0x331)
+	0x76196d39: USER32 + 0x16d39 (GetThreadDesktop + 0xd6)
+	0x761a0d36: USER32 + 0x20d36 (GetClientRect + 0xc4)
+	0x761a7959: USER32 + 0x27959 (CallWindowProcA + 0x1a)
+	0x0040ac33: quartus + 0xac33
+	0x00413720: quartus + 0x13720 (Pjm_Uninit + 0x44e0)
+	0x00416de0: quartus + 0x16de0 (Pjm_Uninit + 0x7ba0)
+	0x761962f9: USER32 + 0x162f9 (gapfnScSendMessage + 0x331)
+	0x7619731d: USER32 + 0x1731d (GetDC + 0x51)
+	0x761977d2: USER32 + 0x177d2 (CharPrevW + 0x13e)
+	0x76197bd9: USER32 + 0x17bd9 (DispatchMessageA + 0xe)
+	0x7441a5cb: mfc90 + 0x9a5cb
+	0x00261968: ccl_thr + 0x1968 (thr_thread_var_destroy + 0x28)
+	0x743e708a: mfc90 + 0x6708a
+	0x0044f42e: quartus + 0x4f42e (Pjm_Uninit + 0x401ee)
+	0x75e4344c: kernel32 + 0x1344c (BaseThreadInitThunk + 0x11)
+	0x77819801: ntdll + 0x39801 (RtlInitializeExceptionChain + 0x62)
+	0x778197d4: ntdll + 0x397d4 (RtlInitializeExceptionChain + 0x35)
+	0xffffffffffffffff:
+		</StackTrace>
+		<Subsystem>unknown</Subsystem>
+	</ApplicationError>
+	<QuartusInstallation>
+		<InstallationID>47100569179.144239525301784</InstallationID>
+		<Version>
+			<Build>235</Build>
+			<BuildSite>SJ</BuildSite>
+			<BuildSuffix/>
+			<Edition>Web Edition</Edition>
+			<ServicePack>2</ServicePack>
+			<VersionNumber>9</VersionNumber>
+		</Version>
+	</QuartusInstallation>
+	<Compilation>
+		<CompileID>0</CompileID>
+		<DeviceFamily/>
+		<IncrementalCompilation/>
+		<SOPCBuilderProjectID/>
+		<TopLevelEntityName/>
+	</Compilation>
+	<QuartusUser>
+		<AlteraUserName/>
+		<FAEContactName/>
+		<UserID>47100569179.166261961306012</UserID>
+		<UserName>Etudiant</UserName>
+		<TalkbackStatus>
+			<DateSet/>
+			<TalkbackOn>true</TalkbackOn>
+		</TalkbackStatus>
+	</QuartusUser>
+	<Machine>
+		<CPUCountLogical>8</CPUCountLogical>
+		<CPUCountPhysical>1</CPUCountPhysical>
+		<CPUSpeed>3591</CPUSpeed>
+		<Hostname>U4-305p5</Hostname>
+		<OS>Windows Vista</OS>
+		<OSAddressBits>64</OSAddressBits>
+		<OSVersion>6.1</OSVersion>
+		<Platform>windows</Platform>
+		<ScreenResolution>unknown</ScreenResolution>
+		<TotalPhysicalRAM>4095</TotalPhysicalRAM>
+		<TotalVirtualRAM>0</TotalVirtualRAM>
+		<NIC>
+			<Address>000af769a65b</Address>
+		</NIC>
+		<NIC>
+			<Address>989096d29918</Address>
+		</NIC>
+	</Machine>
+</ProgramExecution>
+

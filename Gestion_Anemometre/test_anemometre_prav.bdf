@@ -1,0 +1,131 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 2018  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details.
+*/
+(header "graphic" (version "1.4"))
+(pin
+	(input)
+	(rect -72 232 136 248)
+	(text "INPUT" (rect 165 0 193 10)(font "Arial" (font_size 6)))
+	(text "in_freq_anemometre" (rect 5 0 106 12)(font "Arial" ))
+	(pt 208 8)
+	(drawing
+		(line (pt 124 12)(pt 149 12))
+		(line (pt 124 4)(pt 149 4))
+		(line (pt 153 8)(pt 208 8))
+		(line (pt 124 12)(pt 124 4))
+		(line (pt 149 4)(pt 153 8))
+		(line (pt 149 12)(pt 153 8))
+	)
+	(text "VCC" (rect 168 7 188 17)(font "Arial" (font_size 6)))
+	(annotation_block (location)(rect -64 256 -8 280))
+)
+(pin
+	(input)
+	(rect 40 152 208 168)
+	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
+	(text "clk_50M" (rect 5 0 45 12)(font "Arial" ))
+	(pt 168 8)
+	(drawing
+		(line (pt 84 12)(pt 109 12))
+		(line (pt 84 4)(pt 109 4))
+		(line (pt 113 8)(pt 168 8))
+		(line (pt 84 12)(pt 84 4))
+		(line (pt 109 4)(pt 113 8))
+		(line (pt 109 12)(pt 113 8))
+	)
+	(text "VCC" (rect 128 7 148 17)(font "Arial" (font_size 6)))
+	(annotation_block (location)(rect -24 128 32 152))
+)
+(symbol
+	(rect 256 88 768 312)
+	(text "anemoVER_1_0" (rect 209 -1 319 15)(font "Arial" (font_size 10)))
+	(text "inst" (rect 8 208 25 220)(font "Arial" ))
+	(port
+		(pt 0 72)
+		(input)
+		(text "clk_clk" (rect 0 0 37 14)(font "Arial" (font_size 8)))
+		(text "clk_clk" (rect 4 61 41 75)(font "Arial" (font_size 8)))
+		(line (pt 0 72)(pt 208 72))
+	)
+	(port
+		(pt 0 112)
+		(input)
+		(text "in_freq_anemometre_beginbursttransfer" (rect 0 0 230 14)(font "Arial" (font_size 8)))
+		(text "in_freq_anemometre_beginbursttransfer" (rect 4 101 234 115)(font "Arial" (font_size 8)))
+		(line (pt 0 112)(pt 208 112))
+	)
+	(port
+		(pt 0 152)
+		(input)
+		(text "reset_reset_n" (rect 0 0 80 14)(font "Arial" (font_size 8)))
+		(text "reset_reset_n" (rect 4 141 84 155)(font "Arial" (font_size 8)))
+		(line (pt 0 152)(pt 208 152))
+	)
+	(port
+		(pt 0 192)
+		(output)
+		(text "test_export[7..0]" (rect 0 0 93 14)(font "Arial" (font_size 8)))
+		(text "test_export[7..0]" (rect 4 181 97 195)(font "Arial" (font_size 8)))
+		(line (pt 0 192)(pt 208 192)(line_width 3))
+	)
+	(drawing
+		(text "clk" (rect 193 43 210 58)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "clk" (rect 213 67 227 79)(font "Arial" (color 0 0 0)))
+		(text "in_freq_anemometre" (rect 86 83 222 98)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "beginbursttransfer" (rect 213 107 302 119)(font "Arial" (color 0 0 0)))
+		(text "reset" (rect 179 123 212 138)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "reset_n" (rect 213 147 249 159)(font "Arial" (color 0 0 0)))
+		(text "test" (rect 187 163 210 178)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "export" (rect 213 187 243 199)(font "Arial" (color 0 0 0)))
+		(text " anemoVER_1_0 " (rect 437 208 523 220)(font "Arial" ))
+		(line (pt 208 32)(pt 304 32))
+		(line (pt 304 32)(pt 304 208))
+		(line (pt 208 208)(pt 304 208))
+		(line (pt 208 32)(pt 208 208))
+		(line (pt 209 52)(pt 209 76))
+		(line (pt 210 52)(pt 210 76))
+		(line (pt 209 92)(pt 209 116))
+		(line (pt 210 92)(pt 210 116))
+		(line (pt 209 132)(pt 209 156))
+		(line (pt 210 132)(pt 210 156))
+		(line (pt 209 172)(pt 209 196))
+		(line (pt 210 172)(pt 210 196))
+		(line (pt 0 0)(pt 512 0))
+		(line (pt 512 0)(pt 512 224))
+		(line (pt 0 224)(pt 512 224))
+		(line (pt 0 0)(pt 0 224))
+	)
+)
+(connector
+	(pt 208 160)
+	(pt 256 160)
+)
+(connector
+	(pt 208 200)
+	(pt 208 240)
+)
+(connector
+	(pt 208 240)
+	(pt 136 240)
+)
+(connector
+	(pt 208 200)
+	(pt 256 200)
+)

@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Tue Sep 17 08:49:30 2024
+Quartus II Version : 9.0 Build 235 06/17/2009 SP 2 SJ Web Edition
+Revision Name : pwm
+Top-level Entity Name : pm
+Family : Cyclone II
+Total logic elements : 21
+    Total combinational functions : 21
+    Dedicated logic registers : 8
+Total registers : 8
+Total pins : 20
+Total virtual pins : 0
+Total memory bits : 0
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0

@@ -1,0 +1,51 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_ARITH.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+
+entity pwm is
+    Port (
+        clk        : in  STD_LOGIC;               -- Horloge
+        reset_n    : in  STD_LOGIC;               -- Reset asynchrone actif bas
+        duty       : in  STD_LOGIC_VECTOR (7 downto 0); -- Rapport cyclique (8 bits)
+        freq_div    : in  STD_LOGIC_VECTOR (7 downto 0); -- Valeur de division pour la fréquence PWM
+        pwm_out    : out STD_LOGIC                -- Sortie PWM
+    );
+end pwm;
+
+architecture Behavioral of pwm is
+    -- Déclaration des signaux pour les compteurs
+    signal counter     : STD_LOGIC_VECTOR (7downto 0) := (others => '0');
+    signal pwm_counter : STD_LOGIC_VECTOR (7 downto 0) := (others => '0');
+begin
+
+    -- Processus pour générer le compteur libre (pour la fréquence du PWM)
+    process (clk, reset_n)
+    begin
+        -- Gestion du reset asynchrone
+        if reset_n = '0' then
+            counter <= (others => '0');        -- Remise à zéro du compteur
+            pwm_counter <= (others => '0');    -- Remise à zéro du compteur PWM
+        elsif rising_edge(clk) then
+            -- Incrémentation du compteur pour la fréquence PWM
+            if counter = freq_div then
+                counter <= (others => '0');   -- Réinitialiser le compteur
+                -- Incrémenter le compteur de PWM
+                pwm_counter <= pwm_counter + 1;
+            else
+                counter <= counter + 1;
+            end if;
+        end if;
+    end process;
+
+    -- Comparateur pour générer la sortie PWM
+    process (pwm_counter, duty)
+    begin
+        if pwm_counter < duty then
+            pwm_out <= '1';  -- Si le compteur PWM est inférieur à duty, pwm_out est haut
+        else
+            pwm_out <= '0';  -- Sinon, pwm_out est bas
+        end if;
+    end process;
+
+end Behavioral;

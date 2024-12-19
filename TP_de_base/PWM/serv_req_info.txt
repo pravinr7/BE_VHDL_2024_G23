@@ -1,0 +1,37 @@
+<internal_error>
+	<executable>quartus.exe</executable>
+	<sub_system>unknown</sub_system>
+	<file>unknown</file>
+	<line>0</line>
+	<callstack>
+	0x77864211: ntdll + 0x84211 (RtlUlonglongByteSwap + 0x74c1)
+	0x75e45e73: kernel32 + 0x15e73 (DeactivateActCtx + 0x27)
+	0x743d86d9: mfc90 + 0x586d9
+	0x761962f9: USER32 + 0x162f9 (gapfnScSendMessage + 0x331)
+	0x76196d39: USER32 + 0x16d39 (GetThreadDesktop + 0xd6)
+	0x761a0d36: USER32 + 0x20d36 (GetClientRect + 0xc4)
+	0x761a7959: USER32 + 0x27959 (CallWindowProcA + 0x1a)
+	0x0040ac33: quartus + 0xac33
+	0x00413720: quartus + 0x13720 (Pjm_Uninit + 0x44e0)
+	0x00416de0: quartus + 0x16de0 (Pjm_Uninit + 0x7ba0)
+	0x761962f9: USER32 + 0x162f9 (gapfnScSendMessage + 0x331)
+	0x7619731d: USER32 + 0x1731d (GetDC + 0x51)
+	0x761977d2: USER32 + 0x177d2 (CharPrevW + 0x13e)
+	0x76197bd9: USER32 + 0x17bd9 (DispatchMessageA + 0xe)
+	0x7441a5cb: mfc90 + 0x9a5cb
+	0x00261968: ccl_thr + 0x1968 (thr_thread_var_destroy + 0x28)
+	0x743e708a: mfc90 + 0x6708a
+	0x0044f42e: quartus + 0x4f42e (Pjm_Uninit + 0x401ee)
+	0x75e4344c: kernel32 + 0x1344c (BaseThreadInitThunk + 0x11)
+	0x77819801: ntdll + 0x39801 (RtlInitializeExceptionChain + 0x62)
+	0x778197d4: ntdll + 0x397d4 (RtlInitializeExceptionChain + 0x35)
+	0xffffffffffffffff:
+	</callstack>
+	<error>Current editor: STED, RPW, WED, RPW</error>
+	<date>Tue Sep 17 11:43:40 2024</date>
+	<version>Quartus II Version 9.0 Build 235 06/17/2009 Service Pack 2 SJ Web Edition</version>
+	<full_error>Unrecognized Windows Exception
+Current editor: STED, RPW, WED, RPW
+Quartus II Version 9.0 Build 235 06/17/2009 Service Pack 2 SJ Web Edition </full_error>
+</internal_error>
+

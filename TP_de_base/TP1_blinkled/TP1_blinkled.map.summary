@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Fri Sep 27 08:22:19 2024
+Quartus II Version : 9.0 Build 235 06/17/2009 SP 2 SJ Web Edition
+Revision Name : TP1_blinkled
+Top-level Entity Name : compteur
+Family : Cyclone II
+Total logic elements : 4
+    Total combinational functions : 4
+    Dedicated logic registers : 4
+Total registers : 4
+Total pins : 6
+Total virtual pins : 0
+Total memory bits : 0
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0

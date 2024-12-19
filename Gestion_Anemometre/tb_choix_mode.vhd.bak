@@ -1,0 +1,83 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+entity tb_choix_mode is
+    -- Pas de ports car il s'agit d'un testbench
+end tb_choix_mode;
+
+architecture Behavioral of tb_choix_mode is
+
+    -- Déclaration des signaux pour la simulation
+    signal clk_1Hz        : STD_LOGIC := '0';
+    signal raz_n          : STD_LOGIC := '1';
+    signal mode_continu   : STD_LOGIC := '0';  -- Mode continu/mode monocoup
+    signal start_stop     : STD_LOGIC := '0';  -- Bouton start/stop en mode monocoup
+    signal counter_out    : STD_LOGIC_VECTOR(8 downto 0) := (others => '0');  -- Entrée du compteur
+    signal data_valid     : STD_LOGIC;
+    signal data_anemometre: STD_LOGIC_VECTOR(8 downto 0);
+
+    -- Constantes pour la simulation
+    constant clk_period : time := 1 sec;  -- Période de l'horloge de 1 Hz
+
+begin
+
+    -- Instanciation du bloc à tester
+    uut: entity work.choix_mode
+        port map (
+            clk_1Hz        => clk_1Hz,
+            raz_n          => raz_n,
+            mode_continu   => mode_continu,
+            start_stop     => start_stop,
+            counter_out    => counter_out,
+            data_valid     => data_valid,
+            data_anemometre=> data_anemometre
+        );
+
+    -- Génération de l'horloge à 1 Hz
+    clk_process : process
+    begin
+        while true loop
+            clk_1Hz <= '0';
+            wait for clk_period / 2;
+            clk_1Hz <= '1';
+            wait for clk_period / 2;
+        end loop;
+    end process clk_process;
+
+    -- Génération des signaux carrés pour counter_out
+    counter_out_process : process
+    begin
+        while true loop
+            -- Générer une fréquence paire (4Hz par exemple)
+            counter_out <= "00000010";  -- 2 en binaire
+            wait for 2 sec;             -- Délai de 2 secondes
+            -- Générer une fréquence impaire (5Hz par exemple)
+            counter_out <= "00000101";  -- 5 en binaire
+            wait for 2 sec;             -- Délai de 2 secondes
+        end loop;
+    end process counter_out_process;
+
+    -- Stimuli pour tester le bloc
+    stimulus_process : process
+    begin
+        -- Initialisation
+        raz_n <= '0';  -- Reset
+        wait for 2 sec;
+        raz_n <= '1';  -- Sortir du reset
+
+        -- Test mode continu
+        mode_continu <= '1';  -- Activer le mode continu
+        wait for 10 sec;      -- Laisser le temps au mode continu de fonctionner
+        
+        -- Test mode monocoup
+        mode_continu <= '0';  -- Désactiver le mode continu (mode monocoup)
+        start_stop <= '1';    -- Démarrer l'acquisition en monocoup
+        wait for 2 sec;
+        start_stop <= '0';    -- Arrêter l'acquisition
+
+        wait for 10 sec;      -- Attendre un peu avant de terminer la simulation
+        wait;
+    end process stimulus_process;
+
+end Behavioral;

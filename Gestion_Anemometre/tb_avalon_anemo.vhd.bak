@@ -1,0 +1,85 @@
+library IEEE;
+use IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all;
+
+entity tb_avalon_anemo is
+end entity;
+
+architecture behavior of tb_avalon_anemo is
+    -- Signals to connect to the DUT (Device Under Test)
+    signal clk, chipselect, reset_n, write_n : std_logic := '1';
+    signal address : std_logic := '0';
+    signal writedata : std_logic_vector(15 downto 0) := (others => '0');
+    signal readdata : std_logic_vector(15 downto 0);
+
+    -- Internal test signals
+    signal clk_period : time := 20 ns;
+
+    -- Component Declaration for DUT
+    component avalon_anemo
+        port(
+            clk, chipselect, reset_n, write_n : in std_logic;
+            writedata : in std_logic_vector(15 downto 0);
+            readdata : out std_logic_vector(15 downto 0);
+            address : std_logic
+        );
+    end component;
+
+begin
+    -- Instantiate DUT
+    DUT: avalon_anemo
+        port map(
+            clk => clk,
+            chipselect => chipselect,
+            reset_n => reset_n,
+            write_n => write_n,
+            writedata => writedata,
+            readdata => readdata,
+            address => address
+        );
+
+    -- Clock generation
+    clk_process: process
+    begin
+        while true loop
+            clk <= '0';
+            wait for clk_period / 2;
+            clk <= '1';
+            wait for clk_period / 2;
+        end loop;
+    end process;
+
+    -- Stimulus Process
+    stimulus_process: process
+    begin
+        -- Apply Reset
+        reset_n <= '0';
+        wait for 50 ns;
+        reset_n <= '1';
+        wait for 50 ns;
+
+        -- Write operation (address 0, set control signals)
+        chipselect <= '1';
+        write_n <= '0';
+        address <= '0';
+        writedata <= "0000" & "00" & "1" & "010"; -- astart_stop = 1, araz_n = 0, acontinu = "010"
+        wait for clk_period;
+        write_n <= '1'; -- End write
+        wait for clk_period;
+
+        -- Write operation (address 1, set a different control value)
+        write_n <= '0';
+        address <= '1';
+        writedata <= "0000" & "00" & "0" & "101"; -- astart_stop = 0, araz_n = 1, acontinu = "101"
+        wait for clk_period;
+        write_n <= '1'; -- End write
+        wait for clk_period;
+
+        -- Read operation (address 1)
+        address <= '1';
+        wait for clk_period;
+
+        -- Stop simulation
+        wait;
+    end process;
+end architecture;

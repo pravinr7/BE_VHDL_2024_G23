@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Thu Dec 19 02:30:37 2024
+Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+Revision Name : BE_VHDL
+Top-level Entity Name : bloc_compteur
+Family : Cyclone IV E
+Total logic elements : 18
+    Total combinational functions : 11
+    Dedicated logic registers : 15
+Total registers : 15
+Total pins : 19
+Total virtual pins : 0
+Total memory bits : 0
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0

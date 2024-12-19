@@ -1,0 +1,95 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+entity tb_counter_test is
+end tb_counter_test;
+
+architecture Behavioral of tb_counter_test is
+
+    -- Déclaration du composant à tester
+    component counter_test
+        Port (
+            clk_1Hz           : in STD_LOGIC;
+            raz_n             : in STD_LOGIC;
+            in_freq_anemometre: in STD_LOGIC;
+            leds              : out STD_LOGIC_VECTOR (15 downto 0)
+        );
+    end component;
+
+    -- Signaux internes pour interconnecter le composant et le test bench
+    signal clk_1Hz           : STD_LOGIC := '0';
+    signal raz_n             : STD_LOGIC := '1';
+    signal in_freq_anemometre: STD_LOGIC := '0';
+    signal leds              : STD_LOGIC_VECTOR(15 downto 0);
+
+    -- Constante pour la période d'horloge (1 seconde pour clk_1Hz)
+    constant clk_period_1Hz : time := 1 sec;
+
+begin
+
+    -- Instanciation du composant (Unit Under Test - UUT)
+    uut: counter_test
+        Port map (
+            clk_1Hz           => clk_1Hz,
+            raz_n             => raz_n,
+            in_freq_anemometre=> in_freq_anemometre,
+            leds              => leds
+        );
+
+    -- Processus de génération de l'horloge à 1 Hz
+    clk_process : process
+    begin
+        while true loop
+            clk_1Hz <= '0';
+            wait for clk_period_1Hz / 2;
+            clk_1Hz <= '1';
+            wait for clk_period_1Hz / 2;
+        end loop;
+    end process clk_process;
+
+    -- Processus pour générer un signal carré à différentes fréquences
+    stim_proc: process
+        variable freq_period : time;
+    begin
+        -- Réinitialisation
+        raz_n <= '0';
+        wait for 100 ms;
+        raz_n <= '1';
+        wait for 100 ms;
+
+        -- PHASE 1: Générer un signal carré à 10 Hz (période de 100 ms) pendant les 500 ms où clk_1Hz est à '1'
+        freq_period := 100 ms;  -- 10 Hz
+        wait until clk_1Hz = '1';  -- Attendre que clk_1Hz soit à '1'
+        for i in 0 to (500 ms / freq_period) - 1 loop  -- Tester pendant 500 ms
+            in_freq_anemometre <= '1';   -- Front montant
+            wait for freq_period / 2;
+            in_freq_anemometre <= '0';   -- Front descendant
+            wait for freq_period / 2;
+        end loop;
+
+        -- PHASE 2: Générer un signal carré à 5 Hz (période de 200 ms) pendant les 500 ms où clk_1Hz est à '1'
+        freq_period := 200 ms;  -- 5 Hz
+        wait until clk_1Hz = '1';  -- Attendre que clk_1Hz soit à '1'
+        for i in 0 to (500 ms / freq_period) - 1 loop  -- Tester pendant 500 ms
+            in_freq_anemometre <= '1';   -- Front montant
+            wait for freq_period / 2;
+            in_freq_anemometre <= '0';   -- Front descendant
+            wait for freq_period / 2;
+        end loop;
+
+        -- PHASE 3: Générer un signal carré à 2 Hz (période de 500 ms) pendant les 500 ms où clk_1Hz est à '1'
+        freq_period := 500 ms;  -- 2 Hz
+        wait until clk_1Hz = '1';  -- Attendre que clk_1Hz soit à '1'
+        for i in 0 to (500 ms / freq_period) - 1 loop  -- Tester pendant 500 ms
+            in_freq_anemometre <= '1';   -- Front montant
+            wait for freq_period / 2;
+            in_freq_anemometre <= '0';   -- Front descendant
+            wait for freq_period / 2;
+        end loop;
+
+        -- Fin de la simulation
+        wait;
+    end process stim_proc;
+
+end Behavioral;

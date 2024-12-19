@@ -1,0 +1,21 @@
+# # File gsaved with Nlview version 6.3.8  2013-12-19 bk=1.2992 VDI=34 GEI=35
+# 
+preplace inst anemoVER_1_0.avalon_anemo_0 -pg 1 -lvl 3 -y 310
+preplace inst anemoVER_1_0.CPU.cpu -pg 1
+preplace inst anemoVER_1_0.CPU -pg 1 -lvl 2 -y 150
+preplace inst anemoVER_1_0.CPU.clock_bridge -pg 1
+preplace inst anemoVER_1_0.CPU.reset_bridge -pg 1
+preplace inst anemoVER_1_0.pio_0 -pg 1 -lvl 3 -y 30
+preplace inst anemoVER_1_0.clk_0 -pg 1 -lvl 1 -y 190
+preplace inst anemoVER_1_0 -pg 1 -lvl 1 -y 40 -regy -20
+preplace inst anemoVER_1_0.DEBUG -pg 1 -lvl 3 -y 130
+preplace inst anemoVER_1_0.RAM -pg 1 -lvl 3 -y 230
+preplace netloc INTERCONNECT<net_container>anemoVER_1_0</net_container>(SLAVE)RAM.s1,(SLAVE)pio_0.s1,(MASTER)CPU.data_master,(MASTER)CPU.instruction_master,(SLAVE)avalon_anemo_0.avalon_slave_0,(SLAVE)DEBUG.avalon_jtag_slave,(SLAVE)CPU.debug_mem_slave) 1 1 2 390 290 790
+preplace netloc EXPORT<net_container>anemoVER_1_0</net_container>(SLAVE)anemoVER_1_0.in_freq_anemometre,(SLAVE)avalon_anemo_0.conduit_end) 1 0 3 NJ 360 NJ 360 NJ
+preplace netloc POINT_TO_POINT<net_container>anemoVER_1_0</net_container>(SLAVE)DEBUG.irq,(MASTER)CPU.irq) 1 2 1 810
+preplace netloc INTERCONNECT<net_container>anemoVER_1_0</net_container>(SLAVE)pio_0.reset,(SLAVE)avalon_anemo_0.reset,(SLAVE)clk_0.clk_in_reset,(SLAVE)RAM.reset1,(MASTER)CPU.debug_reset_request,(SLAVE)DEBUG.reset,(SLAVE)CPU.reset,(MASTER)clk_0.clk_reset) 1 0 3 150 180 350 310 770
+preplace netloc FAN_OUT<net_container>anemoVER_1_0</net_container>(MASTER)clk_0.clk,(SLAVE)pio_0.clk,(SLAVE)RAM.clk1,(SLAVE)CPU.clk,(SLAVE)DEBUG.clk,(SLAVE)avalon_anemo_0.clock) 1 1 2 370 110 750
+preplace netloc EXPORT<net_container>anemoVER_1_0</net_container>(SLAVE)anemoVER_1_0.clk,(SLAVE)clk_0.clk_in) 1 0 1 NJ
+preplace netloc EXPORT<net_container>anemoVER_1_0</net_container>(SLAVE)pio_0.external_connection,(SLAVE)anemoVER_1_0.test) 1 0 3 NJ 60 NJ 60 NJ
+levelinfo -pg 1 0 120 1000
+levelinfo -hier anemoVER_1_0 130 180 510 840 990

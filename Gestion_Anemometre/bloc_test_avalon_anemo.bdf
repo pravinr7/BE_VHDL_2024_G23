@@ -1,0 +1,117 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 2018  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details.
+*/
+(header "graphic" (version "1.4"))
+(pin
+	(input)
+	(rect 192 392 360 408)
+	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
+	(text "clk_clk" (rect 5 0 39 12)(font "Arial" ))
+	(pt 168 8)
+	(drawing
+		(line (pt 84 12)(pt 109 12))
+		(line (pt 84 4)(pt 109 4))
+		(line (pt 113 8)(pt 168 8))
+		(line (pt 84 12)(pt 84 4))
+		(line (pt 109 4)(pt 113 8))
+		(line (pt 109 12)(pt 113 8))
+	)
+	(text "VCC" (rect 128 7 148 17)(font "Arial" (font_size 6)))
+	(annotation_block (location)(rect 136 408 192 432))
+)
+(pin
+	(input)
+	(rect 208 488 440 504)
+	(text "INPUT" (rect 189 0 217 10)(font "Arial" (font_size 6)))
+	(text "in_freq_anemometre_export" (rect 5 0 143 12)(font "Arial" ))
+	(pt 232 8)
+	(drawing
+		(line (pt 148 12)(pt 173 12))
+		(line (pt 148 4)(pt 173 4))
+		(line (pt 177 8)(pt 232 8))
+		(line (pt 148 12)(pt 148 4))
+		(line (pt 173 4)(pt 177 8))
+		(line (pt 173 12)(pt 177 8))
+	)
+	(text "VCC" (rect 192 7 212 17)(font "Arial" (font_size 6)))
+	(annotation_block (location)(rect 152 504 208 528))
+)
+(symbol
+	(rect 528 344 896 488)
+	(text "anemoVER_1_0" (rect 137 -1 247 15)(font "Arial" (font_size 10)))
+	(text "inst1" (rect 8 128 31 140)(font "Arial" ))
+	(port
+		(pt 0 72)
+		(input)
+		(text "clk_clk" (rect 0 0 37 14)(font "Arial" (font_size 8)))
+		(text "clk_clk" (rect 4 61 41 75)(font "Arial" (font_size 8)))
+		(line (pt 0 72)(pt 160 72))
+	)
+	(port
+		(pt 0 112)
+		(input)
+		(text "in_freq_anemometre_export" (rect 0 0 160 14)(font "Arial" (font_size 8)))
+		(text "in_freq_anemometre_export" (rect 4 101 164 115)(font "Arial" (font_size 8)))
+		(line (pt 0 112)(pt 160 112))
+	)
+	(drawing
+		(text "clk" (rect 145 43 162 58)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "clk" (rect 165 67 179 79)(font "Arial" (color 0 0 0)))
+		(text "in_freq_anemometre" (rect 38 83 174 98)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "export" (rect 165 107 195 119)(font "Arial" (color 0 0 0)))
+		(text " anemoVER_1_0 " (rect 293 128 379 140)(font "Arial" ))
+		(line (pt 160 32)(pt 208 32))
+		(line (pt 208 32)(pt 208 128))
+		(line (pt 160 128)(pt 208 128))
+		(line (pt 160 32)(pt 160 128))
+		(line (pt 161 52)(pt 161 76))
+		(line (pt 162 52)(pt 162 76))
+		(line (pt 161 92)(pt 161 116))
+		(line (pt 162 92)(pt 162 116))
+		(line (pt 0 0)(pt 368 0))
+		(line (pt 368 0)(pt 368 144))
+		(line (pt 0 144)(pt 368 144))
+		(line (pt 0 0)(pt 0 144))
+	)
+)
+(connector
+	(pt 360 400)
+	(pt 432 400)
+)
+(connector
+	(pt 432 416)
+	(pt 528 416)
+)
+(connector
+	(pt 432 400)
+	(pt 432 416)
+)
+(connector
+	(pt 528 456)
+	(pt 496 456)
+)
+(connector
+	(pt 496 456)
+	(pt 496 496)
+)
+(connector
+	(pt 440 496)
+	(pt 496 496)
+)

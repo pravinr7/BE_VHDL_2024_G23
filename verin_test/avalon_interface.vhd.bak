@@ -1,0 +1,51 @@
+library IEEE;
+use IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all;
+
+entity avalon_interface is
+    generic (
+        DATA_WIDTH : integer := 32;  -- Largeur des données du bus Avalon
+        ADDR_WIDTH : integer := 4   -- Largeur de l'adresse du bus Avalon
+    );
+    port (
+        -- Interface Avalon-MM
+        av_clk         : in  std_logic;                          -- Horloge Avalon
+        av_reset_n     : in  std_logic;                          -- Réinitialisation active basse
+        av_address     : in  std_logic_vector(ADDR_WIDTH-1 downto 0); -- Adresse
+        av_write       : in  std_logic;                          -- Signal d'écriture
+        av_read        : in  std_logic;                          -- Signal de lecture
+        av_writedata   : in  std_logic_vector(DATA_WIDTH-1 downto 0); -- Données à écrire
+        av_readdata    : out std_logic_vector(DATA_WIDTH-1 downto 0); -- Données à lire
+        av_waitrequest : out std_logic;                          -- Signal d'attente
+
+        -- Ports pour le module top_level
+        duty           : out std_logic_vector(7 downto 0);       -- Rapport cyclique
+        Nfreq          : out std_logic_vector(7 downto 0);       -- Fréquence de PWM
+        rst_pwm        : out std_logic;                          -- Réinitialisation PWM
+        angle_barre    : in  std_logic_vector(11 downto 0)       -- Angle de la barre (lecture)
+    );
+end entity avalon_interface;
+
+architecture Behavioral of avalon_interface is
+    -- Définition des registres internes
+    signal duty_reg       : std_logic_vector(7 downto 0) := (others => '0');
+    signal Nfreq_reg      : std_logic_vector(7 downto 0) := (others => '0');
+    signal rst_pwm_reg    : std_logic := '0';
+    signal readdata_reg   : std_logic_vector(DATA_WIDTH-1 downto 0) := (others => '0');
+
+    -- État du signal waitrequest
+    signal waitrequest_reg : std_logic := '0';
+
+begin
+
+    -- Connecter les sorties aux registres internes
+    duty     <= duty_reg;
+    Nfreq    <= Nfreq_reg;
+    rst_pwm  <= rst_pwm_reg;
+    av_readdata <= readdata_reg;
+    av_waitrequest <= waitrequest_reg;
+
+    -- Processus principal pour gérer les opérations Avalon-MM
+    process(av_clk)
+    begin
+       

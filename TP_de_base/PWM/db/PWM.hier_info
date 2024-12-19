@@ -1,0 +1,37 @@
+|PWM
+clk_50mhz => compteur_f[7].CLK
+clk_50mhz => compteur_f[6].CLK
+clk_50mhz => compteur_f[5].CLK
+clk_50mhz => compteur_f[4].CLK
+clk_50mhz => compteur_f[3].CLK
+clk_50mhz => compteur_f[2].CLK
+clk_50mhz => compteur_f[1].CLK
+clk_50mhz => compteur_f[0].CLK
+reset_n => ~NO_FANOUT~
+duty[0] => LessThan0.IN8
+duty[1] => LessThan0.IN7
+duty[2] => LessThan0.IN6
+duty[3] => LessThan0.IN5
+duty[4] => LessThan0.IN4
+duty[5] => LessThan0.IN3
+duty[6] => LessThan0.IN2
+duty[7] => LessThan0.IN1
+Nfreq[0] => Equal0.IN7
+Nfreq[1] => Equal0.IN6
+Nfreq[2] => Equal0.IN5
+Nfreq[3] => Equal0.IN4
+Nfreq[4] => Equal0.IN3
+Nfreq[5] => Equal0.IN2
+Nfreq[6] => Equal0.IN1
+Nfreq[7] => Equal0.IN0
+rst => compteur_f[7].ACLR
+rst => compteur_f[6].ACLR
+rst => compteur_f[5].ACLR
+rst => compteur_f[4].ACLR
+rst => compteur_f[3].ACLR
+rst => compteur_f[2].ACLR
+rst => compteur_f[1].ACLR
+rst => compteur_f[0].ACLR
+pwm_out <= LessThan0.DB_MAX_OUTPUT_PORT_TYPE
+
+

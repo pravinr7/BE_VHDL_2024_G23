@@ -1,0 +1,22 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+-- Déclaration de l'entité
+entity compteur is
+    Port (
+        A      : in  STD_LOGIC; -- premier bit
+        B      : in  STD_LOGIC; -- deuxième bit
+        S      : out STD_LOGIC; -- somme
+        C_out  : out STD_LOGIC  -- retenue
+    );
+end compteur;
+
+-- Architecture de l'entité
+architecture Behavioral of compteur is
+begin
+    -- Calcul de la somme (XOR entre A et B)
+    S <= A XOR B;
+    
+    -- Calcul de la retenue (AND entre A et B)
+    C_out <= A AND B;
+end Behavioral;

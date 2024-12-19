@@ -1,0 +1,50 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;  -- Utiliser cette bibliothèque pour les opérations numériques
+--use IEEE.STD_LOGIC_ARITH.ALL;
+
+
+entity counter is
+    Port (
+        clk_1Hz           : in STD_LOGIC;  -- Signal d'horloge à 1 Hz (1 seconde)
+        raz_n             : in STD_LOGIC;  -- Reset asynchrone pour réinitialiser le compteur
+        in_freq_anemometre: in STD_LOGIC;  -- Entrée pour la fréquence de l'anémomètre (variable)
+        leds               : out STD_LOGIC_VECTOR (15 downto 0)  -- LEDs pour afficher le compteur (0 à 255)
+    );
+end counter;
+
+architecture Behavioral of counter is
+    signal count         : STD_LOGIC_VECTOR (7 downto 0) := "00000000";  -- Compteur pour le nombre de fronts montants
+     signal count2         : STD_LOGIC_VECTOR (7 downto 0) := "00000000";  -- Compteur pour le nombre de fronts montants
+
+begin
+
+    process(clk_1Hz, raz_n,in_freq_anemometre)
+    begin
+        if raz_n = '0' then
+            -- Réinitialisere compteur
+            count <= "00000000";
+                count2 <= "00000000";
+               
+               
+        elsif clk_1Hz = '1' then
+            -- Afficher le nombre de fronts détectés sur les LEDs
+               
+               
+                if unsigned(count) = "00000010" then
+                    count <= (others => '0');  -- Réinitialiser le compteur de secondes
+                    count2 <= (others => '0');  -- Réinitialiser le compteur de fronts
+               
+                    count <= std_logic_vector(unsigned(count) + 1);
+                elsif rising_edge( in_freq_anemometre) then
+                    count2 <= std_logic_vector(unsigned(count2) + 1);  -- Incrémenter le compteur sur un front montant
+               
+                   
+                 end if;
+        end if;
+         
+          --leds <= 2*count2  ;
+          leds <= std_logic_vector(unsigned(count2) * 2);
+    end process;
+
+end Behavioral;
